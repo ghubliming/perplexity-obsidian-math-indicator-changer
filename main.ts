@@ -26,7 +26,7 @@ export default class MathIndicatorChanger extends Plugin {
 			}
 		});
 		ribbonIconEl.addClass('math-indicator-changer-ribbon-class');
-		
+
 		this.addCommand({
 			id: 'change-math-indicator',
 			name: 'Change math indicator',
@@ -52,27 +52,9 @@ export default class MathIndicatorChanger extends Plugin {
 		});
 	}
 
-	replaceLeftParentheses(text: string): string {
-		return text.replace(/\\\([ \t]*/g, '$');
-	}
-
-	replaceRightParentheses(text: string): string {
-		return text.replace(/[ \t]*\\\)/g, '$')
-	}
-
-	replaceLeftBrackets(text: string): string {
-		return text.replace(/\\\[[ \t]*/g, '$$$$');
-	}
-
-	replaceRightBrackets(text: string): string {
-		return text.replace(/[ \t]*\\\]/g, '$$$$')
-	}
-
 	replaceAllMathIndicators(text: string): string {
-		let newText = this.replaceLeftParentheses(text);
-		newText = this.replaceRightParentheses(newText);
-		newText = this.replaceLeftBrackets(newText);
-		newText = this.replaceRightBrackets(newText);
+		// Replace inline math equations
+		let newText = text.replace(/\$\$ ([^\$]+) \$\$/g, '$$$1$');
 		return newText;
 	}
 
